@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
+    @GetMapping("/main")
+    public String main() {
+        return "main";
+    }
+
     @GetMapping("/")
-    @ResponseBody
-    public String hello() {
-        return "Main test";
+    public String root() {
+        return "redirect:/main";
     }
 }
