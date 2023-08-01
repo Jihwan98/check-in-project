@@ -12,6 +12,7 @@ import javax.accessibility.AccessibleText;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -40,6 +41,7 @@ public class AttendanceService {
 
     public void create(SiteUser user, LocalDateTime time) {
         Attendance atd = new Attendance();
+        atd.setSiteUser(user);
         atd.setCheckinDate(time.toLocalDate());
         atd.setCheckinTime(time.toLocalTime());
 
@@ -49,5 +51,9 @@ public class AttendanceService {
             atd.setStatus("지각");
         }
         this.attendanceRepository.save(atd);
+    }
+
+    public List<Attendance> findByUserAndDate(SiteUser user, LocalDate date) {
+        return this.attendanceRepository.findBySiteUserAndCheckinDate(user, date);
     }
 }

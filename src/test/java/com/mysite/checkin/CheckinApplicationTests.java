@@ -60,5 +60,9 @@ class CheckinApplicationTests {
 		System.out.println("Time : " + atd.getCheckinTime());
 	}
 
+	@Test
+	void 사람별_출석() {
+
+	}
 
 }

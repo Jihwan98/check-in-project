@@ -15,17 +15,17 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public SiteUser create(String userid, String username, String password) {
+    public SiteUser create(String username, String name, String password) {
         SiteUser user = new SiteUser();
-        user.setUserid(userid);
         user.setUsername(username);
+        user.setName(name);
         user.setPassword(passwordEncoder.encode(password));
         this.userRepository.save(user);
         return user;
     }
 
-    public SiteUser getUser(String userid) {
-        Optional<SiteUser> siteUser = this.userRepository.findByuserid(userid);
+    public SiteUser getUser(String username) {
+        Optional<SiteUser> siteUser = this.userRepository.findByusername(username);
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
