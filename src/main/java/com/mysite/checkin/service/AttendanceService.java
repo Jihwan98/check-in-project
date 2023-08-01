@@ -30,20 +30,14 @@ public class AttendanceService {
         }
     }
 
-    public Attendance getAttendance(SiteUser user) {
-        Optional<Attendance> attendance = this.attendanceRepository.findBySiteUser(user);
-        if (attendance.isPresent()) {
-            return attendance.get();
-        } else {
-            throw new DataNotFoundException("attendance not found");
-        }
+    public List<Attendance> findByUser(SiteUser user) {
+        return this.attendanceRepository.findBySiteUser(user);
     }
-
     public void create(SiteUser user, LocalDateTime time) {
         Attendance atd = new Attendance();
         atd.setSiteUser(user);
         atd.setCheckinDate(time.toLocalDate());
-        atd.setCheckinTime(time.toLocalTime());
+        atd.setCheckinTime(time.toLocalTime().withNano(0));
 
         if (time.toLocalTime().isBefore(this.checkTimeEnd)) {
             atd.setStatus("출석");
@@ -51,9 +45,5 @@ public class AttendanceService {
             atd.setStatus("지각");
         }
         this.attendanceRepository.save(atd);
-    }
-
-    public List<Attendance> findByUserAndDate(SiteUser user, LocalDate date) {
-        return this.attendanceRepository.findBySiteUserAndCheckinDate(user, date);
     }
 }

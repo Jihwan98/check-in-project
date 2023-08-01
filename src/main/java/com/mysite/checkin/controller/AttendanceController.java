@@ -36,7 +36,6 @@ public class AttendanceController {
         LocalDate date = now.toLocalDate();
         LocalTime time = now.toLocalTime();
 
-        String status;
 //        if (time.isBefore(this.checkTimeStart)) {
 //            // ResponseStatusException으로 보내는게 맞을지..? 일단 front 에서 alert로 알려주던지..
 //            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "9시 ~ 9시 10분에 시도하세요");
